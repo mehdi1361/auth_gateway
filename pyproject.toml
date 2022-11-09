@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "auth_gateway"
+version = "0.1.0"
+description = ""
+authors = ["mehdi <13610522>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "^0.86.0"
+uvicorn = {extras = ["standard"], version = "^0.19.0"}
+typer = {extras = ["all"], version = "^0.7.0"}
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
