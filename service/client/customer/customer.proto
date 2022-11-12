@@ -1,0 +1,338 @@
+syntax = "proto3";
+
+package customer;
+
+import "google/protobuf/empty.proto";
+
+service CustomerController {
+    rpc List(CustomerListRequest) returns (stream Customer) {}
+    rpc Create(Customer) returns (Customer) {}
+    rpc Retrieve(CustomerRetrieveRequest) returns (Customer) {}
+    rpc Update(Customer) returns (Customer) {}
+    rpc Destroy(Customer) returns (google.protobuf.Empty) {}
+    rpc GetActiveMobile(CustomerRetrieveRequest) returns (CustomerPhone) {}
+    rpc SejamRegisterPrivatePerson (SejamRegisterPrivatePersonRequest) returns (SejamRegisterPrivatePersonResponse) {}
+    rpc GetCustomerState(CustomerStateRequest) returns (stream CustomerStateResponse) {}
+    rpc SetState(SetStateRequest) returns (SetStateResponse) {}
+    rpc GetPersonJobInfo (PersonByNationalIdRequest) returns (JobInfoResponse) {}
+    rpc GetPersonByNationalId (PersonByNationalIdRequest) returns (PersonByNationalIdResponse) {}
+    rpc GetPersonByAddress (PersonByNationalIdRequest) returns (PersonByAddressResponse) {}
+    rpc GetPersonBankAccount (PersonByNationalIdRequest) returns (stream Account) {}
+    rpc GetPersonFinancialInfo (PersonByNationalIdRequest) returns (PersonFinancialResponse) {}
+    rpc CustomerGetFile (PersonByNationalIdRequest) returns (stream CustomerFile) {}
+    rpc CustomerPostFile (PostCustomerFile) returns (PostCustomerFileResponse) {}
+    rpc LoginByNationalId (LoginByNationalIdRequest) returns (LoginStateResponse) {}
+    rpc CustomerVerified (CustomerVerifiedRequest) returns (StateResponse) {}
+    rpc CustomerListApp (CustomerListAppRequest) returns (stream CustomerApp) {}
+
+
+}
+
+message Customer {
+    int64 id = 1;
+    string created_date = 2;
+    string updated_date = 3;
+    string sejam_reference_code = 4;
+    string normal_national_code = 5;
+    string user_name = 6;
+    string password = 7;
+    bool is_active = 8;
+    bool is_rayan_service = 9;
+    bool is_sejami = 10;
+    string sejam_type = 11;
+    string rayan_customer_id = 12;
+}
+
+message CustomerListRequest {
+}
+
+message CustomerRetrieveRequest {
+    string national_code = 1;
+}
+
+message CustomerPhone {
+    string phone_number = 1;
+    bool is_active = 2;
+    bool is_mobile = 3;
+    string mebbco_type = 4;
+}
+
+message SejamProfileParams {
+        string normal_national_code = 1;
+        string sejam_type = 2;
+        bool is_active = 3;
+        bool is_sejami = 4;
+}
+
+message SejamFinancialInfo {
+        int64 assets_value = 1;
+        int64 incoming_average = 2;
+        int64 s_exchange_transaction = 3;
+        int64 c_exchange_transaction = 4;
+        int64 out_exchange_transaction = 5;
+        string transaction_level = 6;
+        string trading_knowledge_level = 7;
+        string company_purpose = 8;
+        string reference_rate_company = 9;
+        string rate_date = 10;
+        string rate = 11;
+}
+
+
+message SejamJobInfo {
+        string employment_date = 1;
+        string company_name = 2;
+        string company_address = 3;
+        string company_postal_code = 4;
+        string company_email = 5;
+        string company_website = 6;
+        string company_city_prefix = 7;
+        string company_phone = 8;
+        string position = 9;
+        string company_fax_prefix = 10;
+        string company_fax = 11;
+        int32 job_id = 12;
+        string job_title = 13;
+        string job_description = 14;
+}
+
+
+message SejamBankAccount {
+        string account_number = 1;
+        string account_type = 2;
+        string sheba = 3;
+        int32 bank_id = 4;
+        string bank_name = 5;
+        string branch_code = 6;
+        string branch_name = 7;
+        int32 branch_city_id = 8;
+        string branch_city_name = 9;
+        bool is_default = 10;
+}
+
+
+message SejamAddress {
+        int32 country_id = 1;
+        string country_name = 2;
+        int32 province_id = 3;
+        string province_name = 4;
+        int32 city_id = 5;
+        string city_name = 6;
+        int32 section_id = 7;
+        string section_name = 8;
+        string city_prefix = 9;
+        string remnant_address = 10;
+        string alley = 11;
+        string plaque = 12;
+        string tel = 13;
+        string country_prefix = 14;
+        string mobile = 15;
+        string emergency_tel = 16;
+        string emergency_tel_city_prefix = 17;
+        string emergency_tel_country_prefix = 18;
+        string fax_prefix = 19;
+        string fax = 20;
+        string website = 21;
+        string email = 22;
+        string postal_code = 23;
+}
+
+
+message SejamPrivatePerson {
+        string first_name = 1;
+        string last_name = 2;
+        string father_name = 3;
+        string gender = 4;
+        string seri_sh_char = 5;
+        string seri_sh = 6;
+        string serial = 7;
+        string sh_number = 8;
+        string birth_date = 9;
+        string place_of_issue = 10;
+        string place_of_birth = 11;
+        string signature_file = 12;
+}
+
+
+message SejamRegisterPrivatePersonRequest {
+        SejamProfileParams profile = 1;
+        SejamFinancialInfo financial_info = 2;
+        SejamJobInfo job_info = 3;
+        repeated SejamBankAccount sejam_bank_accounts = 4;
+        repeated SejamAddress sejam_addresses = 5;
+        SejamPrivatePerson private_person = 6;
+}
+
+message SejamRegisterPrivatePersonResponse {
+        int32 id = 1;
+        string message = 2;
+}
+
+message CustomerStateRequest {
+        string national_code = 1;
+}
+
+message CustomerStateResponse {
+        string state_name = 1;
+        string title = 2;
+        string icon_class = 3;
+        int64 state_id = 4;
+        bool confirm = 5;
+}
+
+message SetStateRequest {
+        string normal_national_code = 1;
+        int32 state_id = 2;
+        bool confirm = 3;
+}
+
+message SetStateResponse {
+        int32 id = 1;
+        string message = 2;
+}
+
+
+message PersonByNationalIdRequest {
+        string normal_national_code = 1;
+}
+
+message JobInfoResponse {
+        string employment_date = 1;
+        string company_name = 2;
+        string company_address = 3;
+		string company_postal_code = 4;
+		string company_email = 5;
+		string company_website = 6;
+		string company_city_prefix = 7;
+		string company_phone = 8;
+		string position = 9;
+		string company_fax_prefix = 10;
+		string company_fax = 11;
+		string job_id = 12;
+		string job_title = 13;
+		string job_description = 14;
+		string customer_id = 15;
+}
+
+message PersonByNationalIdResponse {
+	string first_name = 1;
+	string last_name = 2;
+	string father_name = 3;
+	string seri_sh_char = 4;
+	string seri_sh = 5;
+	string serial = 6;
+	string sh_number = 7;
+	string birth_date = 8;
+	string place_of_issue = 9;
+	string place_of_birth = 10;
+    string economic_code = 11;
+    string national_id = 12;
+}
+
+message PersonByAddressResponse {
+	string postal_code = 1;
+	string address = 2;
+	string mobile = 3;
+	string fax = 4;
+	string tel = 5;
+	string email = 6;
+	string province_name = 7;
+	string city_name = 8;
+}
+
+
+message BranchData {
+    string name = 1;
+    string code = 2;
+    string sejam_code = 3;
+    string dl_number = 4;
+    string bank = 5;
+    string city = 6;
+}
+
+message PersonFinancialResponse {
+	int64 asset_value = 1;
+	int32 incoming_average = 2;
+	int32 s_exchange_transaction = 3;
+	int32 c_exchange_transaction = 4;
+	int32 out_exchange_transaction = 5;
+	string transaction_level = 6;
+	string trading_knowledge_level = 7;
+	string company_purpose = 8;
+	string reference_rate_company = 9;
+	string rate_date = 10;
+	string rate = 11;
+}
+
+message FileExtension {
+        string name = 1;
+        int32 real_size = 2;
+        string size = 3;
+}
+
+message CustomerFile {
+        uint32 id = 1;
+        string name = 2;
+        string fa_name = 3;
+        bool is_force = 4;
+        string file_data = 5;
+        string extension_name = 6;
+        int32 extension_real_size = 7;
+        string extension_size = 8;
+}
+
+message PostCustomerFile {
+        string normal_national_code = 1;
+        string file_type_name = 2;
+        string file_data = 3;
+}
+
+message PostCustomerFileResponse {
+        int32 id = 1;
+        string message = 2;
+}
+
+message Account {
+        int32 rayan_bank_account_id = 1;
+        string account_number  = 2;
+        string ba_type_name = 3;
+        string sheba = 4;
+        bool is_default = 5;
+        bool is_active = 6;
+        bool is_online = 7;
+        string branch_name = 8;
+        string branch_code = 9;
+        string sejam_branch_code = 10;
+        string dl_number = 11;
+        string bank = 12;
+        string city = 13;
+}
+
+message LoginByNationalIdRequest {
+        string national_id = 1;
+}
+
+message LoginStateResponse {
+        int32 id = 1;
+        string message = 2;
+}
+message StateResponse {
+        int32 id = 1;
+        string message = 2;
+}
+
+message CustomerVerifiedRequest {
+        string verification_code = 1;
+        string normal_national_code = 2;
+}
+
+message CustomerListAppRequest {
+        string normal_national_code = 1;
+}
+
+message CustomerApp {
+        int64 id = 1;
+        string name = 2;
+        string fa_name = 3;
+        bool active = 4;
+}
