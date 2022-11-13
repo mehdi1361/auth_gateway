@@ -24,12 +24,13 @@ class CustomerClient:
 
 
     @staticmethod
-    def verified(national_code):
+    def verified(national_code, verification_code):
         with client_connection() as channel:
             stub = customer_pb2_grpc.CustomerControllerStub(channel)
-            data = stub.LoginByNationalId(
-                customer_pb2.LoginByNationalIdRequest(
-                    national_id=national_code
+            data = stub.CustomerVerified(
+                customer_pb2.CustomerVerifiedRequest(
+                    normal_national_code=national_code,
+                    verification_code=verification_code
                 )
             )
 
