@@ -12,7 +12,7 @@ env_file = os.environ.get('auth_gateway_env')
 if env_file is not None:
     dotenv_path = Path(os.path.join(BASE_DIR, env_file))
 else:
-    dotenv_path = Path(os.path.join(BASE_DIR, '.env'))
+    dotenv_path = Path(os.path.join(BASE_DIR, '.server.env'))
 
 load_dotenv(dotenv_path=dotenv_path)
 
