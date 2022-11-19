@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  auth_gateway_grpc_242_master:
+  auth_gateway_242_http:
     image: auth_gateway_img:latest
     command: sh -c "python3 http_server.py"
     environment:
@@ -14,7 +14,7 @@ services:
     ports:
       - 3000:3000
 
-  auth_gateway_http_242_master:
+  auth_gateway_242_grpc:
     image: auth_gateway_img:latest
     command: sh -c "python3 grpc_server.py"
 
