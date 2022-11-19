@@ -15,7 +15,7 @@ services:
       - 3000:3000
 
   auth_gateway_http_242_master:
-    image: customer_service_img:latest
+    image: auth_gateway_img:latest
     command: sh -c "python3 grpc_server.py"
 
     environment:
