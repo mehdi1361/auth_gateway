@@ -23,6 +23,6 @@ async def login_request(param: LoginParam):
             )
 
         return JSONResponse(
-            content={"id": 400, "message": "کاربر یافت نشد"},
+            content={"id": 400, "message": str(e)},
             status_code=status.HTTP_400_BAD_REQUEST
         )
