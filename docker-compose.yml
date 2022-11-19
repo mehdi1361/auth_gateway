@@ -12,7 +12,7 @@ services:
     container_name: auth_gateway_242_http
 
     ports:
-      - 3000:3000
+      - 3001:3000
 
   auth_gateway_242_grpc:
     image: auth_gateway_img:latest
