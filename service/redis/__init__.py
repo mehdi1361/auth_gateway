@@ -7,7 +7,6 @@ class RedisClient:
         r = redis.Redis(
             host=settings.REDIS_SERVER_URL,
             port=settings.REDIS_SERVER_PORT,
-            db=settings.REDIS_SERVER_DATABASE
         )
         r.set(token, national_code)
         r.expire(token, 60*20)
@@ -15,8 +14,33 @@ class RedisClient:
 
     @staticmethod
     def get_token(token):
-        pass
+        r = redis.Redis(
+            host=settings.REDIS_SERVER_URL,
+            port=settings.REDIS_SERVER_PORT,
+        )
+        return r.get(token)
 
     @staticmethod
     def check_token(national_code):
-        pass
+        r = redis.Redis(
+            host=settings.REDIS_SERVER_URL,
+            port=settings.REDIS_SERVER_PORT,
+        )
+
+        for key in r.scan_iter():
+            if r.get(key) == RedisClient.get_token(key):
+                return True, key
+
+        else:
+            return False, None
+
+    @staticmethod
+    def delete_token_with_national_code(national_code):
+        r = redis.Redis(
+            host=settings.REDIS_SERVER_URL,
+            port=settings.REDIS_SERVER_PORT,
+        )
+
+        for key in r.scan_iter():
+            if r.get(key) == RedisClient.get_token(key):
+                r.delete(key)

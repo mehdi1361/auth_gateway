@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  auth_gateway_grpc_242_master:
+    image: auth_gateway_img:latest
+    command: sh -c "python3 http_server.py"
+    environment:
+      - auth_gateway_env=.server.env
+
+    volumes:
+      - ./log:/var/log
+    container_name: auth_gateway_242_http
+
+    ports:
+      - 3000:3000
+
+  auth_gateway_http_242_master:
+    image: customer_service_img:latest
+    command: sh -c "python3 grpc_server.py"
+
+    environment:
+      - auth_gateway_env=.server.env
+
+    volumes:
+      - ./log:/var/log
+
+    container_name: auth_gateway_242_grpc
+
+    ports:
+      - 50056:50056

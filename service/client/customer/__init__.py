@@ -35,3 +35,21 @@ class CustomerClient:
             )
 
             return data
+
+    @staticmethod
+    def customer_apps(national_code):
+        with client_connection() as channel:
+            stub = customer_pb2_grpc.CustomerControllerStub(channel)
+            data = stub.CustomerListApp(
+                customer_pb2.CustomerListAppRequest(
+                    normal_national_code=national_code,
+                )
+            )
+            return [
+               {
+                   "id": item.id,
+                   "name": item.name,
+                   "fa_name": item.fa_name,
+                   "active": item.active
+               } for item in data
+            ]

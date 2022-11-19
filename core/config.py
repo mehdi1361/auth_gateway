@@ -38,6 +38,9 @@ class Settings(BaseSettings):
     REDIS_SERVER_DATABASE: str = os.getenv("REDIS_SERVER_DATABASE")
 
     JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY")
+    SERVER: str = os.getenv("SERVER")
+    PORT: int = os.getenv("PORT")
+    GRPC_PORT: int = os.getenv("GRPC_PORT")
 
     PROJECT_NAME: str = "auth_gateway"
     SENTRY_DSN: Optional[HttpUrl] = None

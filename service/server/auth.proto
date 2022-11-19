@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+service AuthService {
+        rpc check_token (CheckTokenRequest) returns (CheckTokenResponse) {}
+}
+
+message CheckTokenRequest {
+        string token = 1;
+}
+
+message CheckTokenResponse {
+        bool valid = 1;
+        string national_code = 2;
+}
