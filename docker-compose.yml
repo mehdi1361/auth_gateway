@@ -1,6 +1,13 @@
 version: '3.8'
 
 services:
+  redis_server:
+    image: redis:latest
+    container_name: auth_gateway_242_grpc
+
+    ports:
+      - 6379:6379
+
   auth_gateway_242_http:
     image: auth_gateway_img:latest
     command: sh -c "python3 http_server.py"
@@ -34,9 +41,3 @@ services:
     ports:
       - 50056:50056
 
-  redis_server:
-    image: redis:latest
-    container_name: auth_gateway_242_grpc
-
-    ports:
-      - 6379:6379
