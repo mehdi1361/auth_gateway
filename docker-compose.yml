@@ -28,3 +28,10 @@ services:
 
     ports:
       - 50056:50056
+
+  redis_server:
+    image: redis:latest
+    container_name: auth_gateway_242_grpc
+
+    ports:
+      - 6379:6379
