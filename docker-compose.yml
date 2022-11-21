@@ -12,7 +12,7 @@ services:
     image: auth_gateway_img:latest
     command: sh -c "python3 http_server.py"
     depends_on:
-      - redis-server
+      - redis_server
 
     environment:
       - auth_gateway_env=.server.env
@@ -28,7 +28,7 @@ services:
     image: auth_gateway_img:latest
     command: sh -c "python3 grpc_server.py"
     depends_on:
-      - redis-server
+      - redis_server
 
     environment:
       - auth_gateway_env=.server.env
