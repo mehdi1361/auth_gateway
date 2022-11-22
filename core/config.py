@@ -27,7 +27,11 @@ class Settings(BaseSettings):
     # BACKEND_CORS_ORIGINS is a JSON-formatted list of origins
     # e.g: '["http://localhost", "http://localhost:4200", "http://localhost:3000", \
     # "http://localhost:8080", "http://local.dockertoolbox.tiangolo.com"]'
-    BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = []
+    BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = [
+        'http://localhost:3000',
+        'https://localhost:3000',
+
+    ]
     CUSTOMER_SERVICE_GRPC_SERVER_URL: str = os.getenv("CUSTOMER_SERVICE_URL")
     CUSTOMER_SERVICE_GRPC_SERVER_PORT: str = os.getenv("CUSTOMER_SERVICE_PORT")
     CUSTOMER_SERVICE_MAX_RECIEVE_SIZE: str = os.getenv("CUSTOMER_SERVICE_MAX_RECIEVE_SIZE")
